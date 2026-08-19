@@ -3,6 +3,7 @@
 @include mat.core();
 
 // Tema do Angular Material — deixado como referência
+
 /*
 $custom-app-primary: mat.m2-define-palette(mat.$m2-blue-palette);
 
@@ -25,11 +26,17 @@ $custom-app-theme: mat.m2-define-light-theme((
 
 // Fim do tema do Angular Material — referência
 
-mat-toolbar {
-  background-color: #7624e0;
-  color: white;
+.main-toolbar {
+  min-height: 64px;
+  padding: 0 30px;
+  background-color: #90a4ae;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-body {
-  margin: 0;
+.app-title {
+  font-family: Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #1f1f1f;
 }
