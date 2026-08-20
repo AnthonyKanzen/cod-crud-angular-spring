@@ -9,25 +9,38 @@
     <span>Cursos</span>
   </mat-toolbar>
 
-  <table mat-table [dataSource]="beginning" class="mat-elevation-z8">
+  @if (loading) {
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Nome</th>
-      <td mat-cell *matCellDef="let beginning">
-        {{ beginning.name }}
-      </td>
-    </ng-container>
+    <div class="loading">
+      <mat-spinner diameter="45"></mat-spinner>
+      <p>Carregando cursos...</p>
+    </div>
 
-    <ng-container matColumnDef="category">
-      <th mat-header-cell *matHeaderCellDef>Categoria</th>
-      <td mat-cell *matCellDef="let beginning">
-        {{ beginning.category }}
-      </td>
-    </ng-container>
+  } @else {
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <table mat-table [dataSource]="beginning" class="mat-elevation-z8">
 
-  </table>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+
+        <td mat-cell *matCellDef="let beginning">
+          {{ beginning.name }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef>Categoria</th>
+
+        <td mat-cell *matCellDef="let beginning">
+          {{ beginning.category }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    </table>
+
+  }
 
 </div>

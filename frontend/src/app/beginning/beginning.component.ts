@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 import { Beginning } from '../models/beginning';
 import { BeginningService } from '../services/beginning.service';
 
@@ -8,7 +11,8 @@ import { BeginningService } from '../services/beginning.service';
   selector: 'app-beginning',
   imports: [
     MatTableModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './beginning.component.html',
   styleUrl: './beginning.component.scss'
@@ -19,11 +23,21 @@ export class BeginningComponent implements OnInit {
 
   displayedColumns = ['name', 'category'];
 
+  loading = true;
+
   constructor(private beginningService: BeginningService) {}
 
   ngOnInit(): void {
-    this.beginningService.list().subscribe(data => {
-      this.beginning = data;
+    this.beginningService.list().subscribe({
+      next: data => {
+        this.beginning = data;
+        this.loading = false;
+      },
+      error: error => {
+        console.error(error);
+        this.loading = false;
+      }
     });
   }
+
 }
