@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { delay } from 'rxjs';
+import { delay, catchError, throwError } from 'rxjs';
 
 import { Beginning } from '../models/beginning';
 
@@ -16,8 +16,13 @@ export class BeginningService {
   list() {
     return this.httpClient
       .get<Beginning[]>(this.API)
-      // delay usado apenas para testar visualmente o spinner
-      //.pipe(delay(2000));
+      .pipe(
+        delay(2000),
+        catchError(error => {
+          console.error('Erro ao carregar os cursos:', error);
+          return throwError(() => error);
+        })
+      );
   }
 
 }
