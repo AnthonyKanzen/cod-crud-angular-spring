@@ -4,10 +4,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 import { Beginning } from '../models/beginning';
 import { BeginningService } from '../services/beginning.service';
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
+import { CategoriesPipe } from '../pipes/categories.pipe';
 
 @Component({
   selector: 'app-beginning',
@@ -15,7 +17,9 @@ import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
     MatTableModule,
     MatToolbarModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatIconModule,
+    CategoriesPipe
   ],
   templateUrl: './beginning.component.html',
   styleUrl: './beginning.component.scss'
