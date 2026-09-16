@@ -9,7 +9,7 @@ import { Beginning } from '../models/beginning';
 })
 export class BeginningService {
 
-  private readonly API = '/beginning.json';
+  private readonly API = '/api/courses';
 
   constructor(private httpClient: HttpClient) {}
 
