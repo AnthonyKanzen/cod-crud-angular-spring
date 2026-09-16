@@ -1,0 +1,118 @@
+:host {
+  display: block;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+.page-header {
+  margin-bottom: 15px;
+}
+
+h1 {
+  margin: 0;
+  color: #222;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+p {
+  margin: 5px 0 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.form-toolbar {
+  position: relative;
+  justify-content: center;
+  background-color: #66bb6a;
+  color: #222;
+  margin-bottom: 0;
+  border-radius: 8px 8px 0 0;
+}
+
+.form-toolbar span {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 30px;
+  background-color: white;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  border-bottom: 2px solid #66bb6a;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+/* Texto digitado no campo Nome */
+input {
+  color: #000 !important;
+  caret-color: #000;
+}
+
+/* Placeholder do campo Nome */
+input::placeholder {
+  color: #777;
+  opacity: 1;
+}
+
+/* Labels Nome e Categoria */
+mat-form-field mat-label {
+  color: #000;
+}
+
+/* Categoria selecionada */
+mat-select {
+  color: #000 !important;
+}
+
+/* Texto das opções da Categoria */
+mat-option {
+  color: #000;
+}
+
+/* Botões */
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 5px;
+}
+
+/* Botão Salvar */
+.actions button[type='submit'] {
+  min-width: 110px;
+  background-color: #66bb6a;
+  color: #000;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.actions button[type='submit']:hover {
+  background-color: #57a95b;
+}
+
+/* Botão Cancelar */
+.actions button[type='button'] {
+  min-width: 110px;
+  background-color: #90a4ae;
+  color: #000;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.actions button[type='button']:hover {
+  background-color: #78909c;
+}

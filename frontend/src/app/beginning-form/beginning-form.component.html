@@ -1,0 +1,47 @@
+<div class="container">
+
+  <div class="page-header">
+    <h1>Meus Cursos</h1>
+    <p>Cadastre um novo curso para estudo.</p>
+  </div>
+
+  <mat-toolbar class="form-toolbar">
+    <span>Novo Curso</span>
+  </mat-toolbar>
+
+  <form class="form" [formGroup]="form">
+
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Nome</mat-label>
+      <input matInput formControlName="name" placeholder="Digite o nome do curso">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" floatLabel="always">
+      <mat-label>Categoria</mat-label>
+
+      <mat-select formControlName="category" placeholder="Selecione uma categoria">
+
+        <mat-option value="front-end">
+          Front-end
+        </mat-option>
+
+        <mat-option value="back-end">
+          Back-end
+        </mat-option>
+
+        <mat-option value="banco-de-dados">
+          Banco de Dados
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-flat-button type="submit">Salvar</button>
+      <button mat-flat-button type="button">Cancelar</button>
+    </div>
+
+  </form>
+
+</div>
