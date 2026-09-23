@@ -64,8 +64,10 @@ export class BeginningComponent implements OnInit {
   }
 
   onEdit(beginning: Beginning): void {
-    console.log('Editar:', beginning);
-  }
+  this.router.navigate(['edit', beginning._id], {
+    relativeTo: this.route
+  });
+}
 
   onDelete(beginning: Beginning): void {
     console.log('Excluir:', beginning);

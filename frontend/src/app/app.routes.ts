@@ -21,6 +21,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./beginning-form/beginning-form.component')
         .then(m => m.BeginningFormComponent)
-  }
+  },
+
+  {
+  path: 'beginning/edit/:id',
+  loadComponent: () =>
+    import('./beginning-edit/beginning-edit.component')
+      .then(m => m.BeginningEditComponent)
+}
 
 ];

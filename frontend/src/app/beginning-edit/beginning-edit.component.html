@@ -2,17 +2,18 @@
 
   <div class="page-header">
     <h1>Meus Cursos</h1>
-    <p>Cadastre um novo curso para estudo.</p>
+    <p>Edite o curso para estudo.</p>
   </div>
 
   <mat-toolbar class="form-toolbar">
-    <span>Novo Curso</span>
+    <span>Editar Curso</span>
   </mat-toolbar>
 
   <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
 
     <mat-form-field appearance="outline" floatLabel="always">
       <mat-label>Nome</mat-label>
+
       <input
         matInput
         formControlName="name"
@@ -45,13 +46,22 @@
     </mat-form-field>
 
     <div class="actions">
-      <button mat-flat-button type="submit">
+
+      <button
+        mat-flat-button
+        type="submit"
+      >
         Salvar
       </button>
 
-      <button mat-flat-button type="button" (click)="onCancel()">
+      <button
+        mat-flat-button
+        type="button"
+        (click)="onCancel()"
+      >
         Cancelar
       </button>
+
     </div>
 
   </form>
