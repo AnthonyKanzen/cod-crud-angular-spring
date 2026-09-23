@@ -3,10 +3,8 @@ package com.anthony.backend.controller;
 import com.anthony.backend.model.Course;
 import com.anthony.backend.repository.CourseRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,9 +16,25 @@ public class CourseController {
     private final CourseRepository courseRepository;
 
     @GetMapping
-    public @ResponseBody List<Course> list() {
+    public List<Course> list() {
         return courseRepository.findAll();
     }
 
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Course create(@RequestBody Course course) {
+        return courseRepository.save(course);
+    }
 
+    @GetMapping("/{id}")
+    public Course findById(@PathVariable Long id) {
+        return courseRepository.findById(id).orElseThrow();
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public Course update(@PathVariable Long id, @RequestBody Course course) {
+        course.setId(id);
+        return courseRepository.save(course);
+    }
 }
