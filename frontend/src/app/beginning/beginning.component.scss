@@ -40,35 +40,25 @@ p {
   letter-spacing: 0.3px;
 }
 
-/* Botão adicionar */
 .beginning-toolbar button {
   position: absolute;
   right: 12px;
   top: 50%;
   transform: translateY(-50%);
-
   width: 40px;
   height: 40px;
-
   min-width: 40px;
   min-height: 40px;
-
   padding: 0;
   margin: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   border: none;
   border-radius: 50%;
-
   background-color: rgba(255, 255, 255, 0.45);
   color: #000;
-
-  transition:
-    background-color 0.2s ease,
-    transform 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .beginning-toolbar button:hover {
@@ -79,45 +69,31 @@ p {
 .beginning-toolbar button mat-icon {
   color: #000;
   margin: 0;
-
   font-size: 24px;
   width: 24px;
   height: 24px;
   line-height: 24px;
 }
 
-/* Tabela */
 table {
   width: 100%;
   table-layout: fixed;
-
   background-color: white;
-
   border-radius: 0 0 8px 8px;
   overflow: hidden;
-
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-
   border-bottom: 2px solid #66bb6a;
 }
 
-/* Três colunas iguais */
 th.mat-column-name,
-td.mat-column-name {
-  width: 33.33%;
-}
-
+td.mat-column-name,
 th.mat-column-category,
-td.mat-column-category {
-  width: 33.33%;
-}
-
+td.mat-column-category,
 th.mat-column-actions,
 td.mat-column-actions {
   width: 33.33%;
 }
 
-/* Cabeçalho */
 th {
   color: #333;
   font-weight: 700;
@@ -125,7 +101,6 @@ th {
   text-align: center;
 }
 
-/* Células */
 td {
   color: #333;
   text-align: center;
@@ -136,80 +111,86 @@ td {
   padding: 14px 20px;
 }
 
-/* Categoria */
-td.mat-column-category {
-  vertical-align: middle;
-}
-
-td.mat-column-category mat-icon {
-  color: #000;
-  vertical-align: middle;
-  margin-right: 5px;
-}
-
-/* Ações */
-td.mat-column-actions {
-  text-align: center;
-  white-space: nowrap;
-}
-
-/* Botões de editar e excluir */
-td.mat-column-actions button {
-  width: 40px;
-  height: 40px;
-
-  min-width: 40px;
-  min-height: 40px;
-
-  padding: 0;
-  margin: 0 4px;
-
+.category {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  border: none;
-  border-radius: 50%;
-
-  background-color: transparent;
-  color: #000;
-
-  box-shadow: none;
-
-  transition:
-    background-color 0.2s ease,
-    transform 0.2s ease;
+  gap: 7px;
 }
 
-/* Círculo aparece somente ao passar o mouse */
-td.mat-column-actions button:hover {
-  background-color: #eeeeee;
-  transform: scale(1.08);
-}
-
-td.mat-column-actions button mat-icon {
-  color: #000;
-
-  margin: 0;
-
+.category mat-icon {
+  color: #333;
   font-size: 21px;
   width: 21px;
   height: 21px;
   line-height: 21px;
 }
 
-/* Efeito ao passar na linha */
+td.mat-column-actions {
+  text-align: center;
+  white-space: nowrap;
+}
+
+td.mat-column-actions button {
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  min-height: 30px;
+  padding: 0;
+  margin: 0 3px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 5px;
+  box-shadow: none;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+td.mat-column-actions button mat-icon {
+  margin: 0;
+  font-size: 17px;
+  width: 17px;
+  height: 17px;
+  line-height: 17px;
+  color: #fff;
+}
+
+.action-edit {
+  background-color: #000;
+}
+
+.action-edit mat-icon {
+  color: #fff;
+}
+
+.action-edit:hover {
+  background-color: #1451d4;
+  transform: scale(1.08);
+}
+
+.action-delete {
+  background-color: #000;
+}
+
+.action-delete mat-icon {
+  color: #fff;
+}
+
+.action-delete:hover {
+  background-color: #c51212;
+  transform: scale(1.08);
+}
+
 tr.mat-mdc-row:hover {
   background-color: #f5f5f5;
 }
 
-/* Carregamento */
 .loading {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   padding: 40px;
   gap: 12px;
 }
@@ -219,3 +200,4 @@ tr.mat-mdc-row:hover {
   color: #666;
   font-size: 14px;
 }
+

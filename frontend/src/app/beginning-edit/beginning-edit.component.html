@@ -1,5 +1,4 @@
 <div class="container">
-
   <div class="page-header">
     <h1>Meus Cursos</h1>
     <p>Edite o curso para estudo.</p>
@@ -18,7 +17,15 @@
         matInput
         formControlName="name"
         placeholder="Digite o nome do curso"
-      >
+        maxlength="50">
+
+      @if (form.get('name')?.hasError('required') && form.get('name')?.touched) {
+        <mat-error>O nome do curso é obrigatório.</mat-error>
+      }
+
+      @if (form.get('name')?.hasError('maxlength')) {
+        <mat-error>O nome pode ter no máximo 50 caracteres.</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="outline" floatLabel="always">
@@ -27,43 +34,23 @@
       <mat-select
         formControlName="category"
         placeholder="Selecione uma categoria"
-      >
+        panelClass="category-panel">
 
-        <mat-option value="front-end">
-          Front-end
-        </mat-option>
-
-        <mat-option value="back-end">
-          Back-end
-        </mat-option>
-
-        <mat-option value="banco-de-dados">
-          Banco de Dados
-        </mat-option>
+        <mat-option value="front-end">Front-end</mat-option>
+        <mat-option value="back-end">Back-end</mat-option>
+        <mat-option value="banco-de-dados">Banco de Dados</mat-option>
 
       </mat-select>
 
+      @if (form.get('category')?.hasError('required') && form.get('category')?.touched) {
+        <mat-error>A categoria é obrigatória.</mat-error>
+      }
     </mat-form-field>
 
     <div class="actions">
-
-      <button
-        mat-flat-button
-        type="submit"
-      >
-        Salvar
-      </button>
-
-      <button
-        mat-flat-button
-        type="button"
-        (click)="onCancel()"
-      >
-        Cancelar
-      </button>
-
+      <button mat-flat-button type="submit">Salvar</button>
+      <button mat-flat-button type="button" (click)="onCancel()">Cancelar</button>
     </div>
 
   </form>
-
 </div>

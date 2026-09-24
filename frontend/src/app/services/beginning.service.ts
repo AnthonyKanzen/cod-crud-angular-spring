@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-
 import { HttpClient } from '@angular/common/http';
-
 import { delay, catchError, throwError } from 'rxjs';
-
 import { Beginning } from '../models/beginning';
 
 @Injectable({
@@ -20,13 +17,12 @@ export class BeginningService {
     return this.httpClient
       .get<Beginning[]>(this.API)
       .pipe(
-        delay(2000),
+        delay(400),
         catchError(error => {
           console.error('Erro ao carregar os cursos:', error);
           return throwError(() => error);
         })
       );
-
   }
 
   save(beginning: Beginning) {
@@ -37,7 +33,6 @@ export class BeginningService {
           return throwError(() => error);
         })
       );
-
   }
 
   findById(id: string) {
@@ -49,6 +44,10 @@ update(id: string, beginning: Beginning) {
     `${this.API}/${id}`,
     beginning
   );
+}
+
+delete(id: string) {
+  return this.httpClient.delete(`${this.API}/${id}`);
 }
 
 }

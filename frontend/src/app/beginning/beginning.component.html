@@ -1,84 +1,48 @@
 <div class="container">
-
   <div class="page-header">
     <h1>Meus Cursos</h1>
     <p>Confira os cursos disponíveis para estudo.</p>
   </div>
 
   <mat-toolbar class="beginning-toolbar">
-
     <span>Cursos</span>
 
-    <!-- Adicionar -->
-    <button
-      mat-icon-button
-      aria-label="Adicionar curso"
-      matTooltip="Adicionar curso"
-      (click)="onAdd()"
-    >
+    <button mat-icon-button aria-label="Adicionar curso" matTooltip="Adicionar curso" (click)="onAdd()">
       <mat-icon>add</mat-icon>
     </button>
-
   </mat-toolbar>
 
   @if (loading) {
-
     <div class="loading">
       <mat-spinner diameter="45"></mat-spinner>
       <p>Carregando cursos...</p>
     </div>
-
   } @else {
-
-    <table
-      mat-table
-      [dataSource]="beginning"
-      class="mat-elevation-z8"
-    >
+    <table mat-table [dataSource]="beginning" class="mat-elevation-z8">
 
       <!-- Nome -->
       <ng-container matColumnDef="name">
-
-        <th mat-header-cell *matHeaderCellDef>
-          Nome
-        </th>
-
-        <td mat-cell *matCellDef="let beginning">
-          {{ beginning.name }}
-        </td>
-
+        <th mat-header-cell *matHeaderCellDef>Nome</th>
+        <td mat-cell *matCellDef="let beginning">{{ beginning.name }}</td>
       </ng-container>
 
       <!-- Categoria -->
       <ng-container matColumnDef="category">
-
-        <th mat-header-cell *matHeaderCellDef>
-          Categoria
-        </th>
-
+        <th mat-header-cell *matHeaderCellDef>Categoria</th>
         <td mat-cell *matCellDef="let beginning">
-
-          <mat-icon>
-            {{ beginning.category | categories }}
-          </mat-icon>
-
-          {{ beginning.category }}
-
+          <div class="category">
+            <mat-icon>{{ beginning.category | categories }}</mat-icon>
+            <span>{{ beginning.category }}</span>
+          </div>
         </td>
-
       </ng-container>
 
       <!-- Ações -->
       <ng-container matColumnDef="actions">
-
-        <th mat-header-cell *matHeaderCellDef>
-          Ações
-        </th>
-
+        <th mat-header-cell *matHeaderCellDef>Ações</th>
         <td mat-cell *matCellDef="let beginning">
-
-          <!-- Editar -->
           <button
+            class="action-edit"
             mat-icon-button
             aria-label="Editar curso"
             matTooltip="Editar curso"
@@ -87,8 +51,8 @@
             <mat-icon>edit</mat-icon>
           </button>
 
-          <!-- Excluir -->
           <button
+            class="action-delete"
             mat-icon-button
             aria-label="Excluir curso"
             matTooltip="Excluir curso"
@@ -96,25 +60,12 @@
           >
             <mat-icon>delete</mat-icon>
           </button>
-
         </td>
-
       </ng-container>
 
-      <!-- Cabeçalho -->
-      <tr
-        mat-header-row
-        *matHeaderRowDef="displayedColumns"
-      ></tr>
-
-      <!-- Linhas -->
-      <tr
-        mat-row
-        *matRowDef="let row; columns: displayedColumns"
-      ></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
     </table>
-
   }
-
 </div>

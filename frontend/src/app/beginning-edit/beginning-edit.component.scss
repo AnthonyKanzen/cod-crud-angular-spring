@@ -28,7 +28,7 @@ p {
 .form-toolbar {
   position: relative;
   justify-content: center;
-  background-color: #6698d1;
+  background-color: #6690ec;
   color: #222;
   margin-bottom: 0;
   border-radius: 8px 8px 0 0;
@@ -48,11 +48,26 @@ p {
   background-color: white;
   border-radius: 0 0 8px 8px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-  border-bottom: 2px solid #6698d1;
+  border-bottom: 2px solid #6690ec;
+
 }
 
 mat-form-field {
   width: 100%;
+  --mdc-outlined-text-field-outline-color: #333;
+  --mdc-outlined-text-field-hover-outline-color: #222;
+  --mdc-outlined-text-field-focus-outline-color: #222;
+  --mdc-outlined-text-field-label-text-color: #222;
+  --mdc-outlined-text-field-focus-label-text-color: #222;
+  --mdc-outlined-text-field-input-text-color: #000;
+}
+
+mat-form-field.mat-form-field-invalid {
+  --mdc-outlined-text-field-outline-color: #d32f2f;
+  --mdc-outlined-text-field-hover-outline-color: #d32f2f;
+  --mdc-outlined-text-field-focus-outline-color: #d32f2f;
+  --mdc-outlined-text-field-label-text-color: #d32f2f;
+  --mdc-outlined-text-field-focus-label-text-color: #d32f2f;
 }
 
 input {
@@ -65,16 +80,20 @@ input::placeholder {
   opacity: 1;
 }
 
-mat-form-field mat-label {
-  color: #000;
-}
-
 mat-select {
   color: #000 !important;
 }
 
-mat-option {
-  color: #000;
+mat-form-field mat-label {
+  color: #222 !important;
+}
+
+mat-form-field.mat-form-field-invalid mat-label {
+  color: #d32f2f !important;
+}
+
+mat-error {
+  color: #d32f2f !important;
 }
 
 .actions {
@@ -87,14 +106,14 @@ mat-option {
 
 .actions button[type='submit'] {
   min-width: 110px;
-  background-color: #6698d1;
+  background-color: #6690ec;
   color: #000;
   font-weight: 600;
   border-radius: 6px;
 }
 
 .actions button[type='submit']:hover {
-  background-color: #6698d1;
+  background-color: #6690ec;
 }
 
 .actions button[type='button'] {
