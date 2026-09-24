@@ -37,4 +37,10 @@ public class CourseController {
         course.setId(id);
         return courseRepository.save(course);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        courseRepository.deleteById(id);
+    }
 }
