@@ -2,6 +2,7 @@ package com.anthony.backend.controller;
 
 import com.anthony.backend.model.Course;
 import com.anthony.backend.repository.CourseRepository;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class CourseController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Course create(@RequestBody Course course) {
+    public Course create(@Valid @RequestBody Course course) {
         return courseRepository.save(course);
     }
 
@@ -33,7 +34,7 @@ public class CourseController {
 
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public Course update(@PathVariable Long id, @RequestBody Course course) {
+    public Course update(@PathVariable Long id, @Valid @RequestBody Course course) {
         course.setId(id);
         return courseRepository.save(course);
     }
