@@ -1,6 +1,6 @@
 package com.anthony.backend.controller;
 
-import com.anthony.backend.model.Course;
+import com.anthony.backend.dto.CourseDTO;
 import com.anthony.backend.service.CourseService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -17,29 +17,29 @@ public class CourseController {
     private final CourseService courseService;
 
     @GetMapping
-    public List<Course> list() {
+    public List<CourseDTO> list() {
         return courseService.list();
     }
 
     @PostMapping
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public Course create(@Valid @RequestBody Course course) {
-        return courseService.create(course);
+    @ResponseStatus(HttpStatus.CREATED)
+    public CourseDTO create(@Valid @RequestBody CourseDTO courseDTO) {
+        return courseService.create(courseDTO);
     }
 
     @GetMapping("/{id}")
-    public Course findById(@PathVariable Long id) {
+    public CourseDTO findById(@PathVariable Long id) {
         return courseService.findById(id);
     }
 
     @PutMapping("/{id}")
-    @ResponseStatus(code = HttpStatus.OK)
-    public Course update(@PathVariable Long id, @Valid @RequestBody Course course) {
-        return courseService.update(id, course);
+    @ResponseStatus(HttpStatus.OK)
+    public CourseDTO update(@PathVariable Long id, @Valid @RequestBody CourseDTO courseDTO) {
+        return courseService.update(id, courseDTO);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id) {
         courseService.delete(id);
     }

@@ -1,6 +1,8 @@
 package com.anthony.backend.service;
 
+import com.anthony.backend.dto.CourseDTO;
 import com.anthony.backend.exception.RecordNotFoundException;
+import com.anthony.backend.mapper.CourseMapper;
 import com.anthony.backend.model.Course;
 import com.anthony.backend.repository.CourseRepository;
 import lombok.AllArgsConstructor;
@@ -14,25 +16,36 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
 
-    public List<Course> list() {
-        return courseRepository.findAll();
+    public List<CourseDTO> list() {
+        return courseRepository.findAll()
+                .stream()
+                .map(CourseMapper::toDTO)
+                .toList();
     }
 
-    public Course create(Course course) {
-        return courseRepository.save(course);
+    public CourseDTO create(CourseDTO courseDTO) {
+        Course course = CourseMapper.toEntity(courseDTO);
+        Course savedCourse = courseRepository.save(course);
+        return CourseMapper.toDTO(savedCourse);
     }
 
-    public Course findById(Long id) {
-        return courseRepository.findById(id)
+    public CourseDTO findById(Long id) {
+        Course course = courseRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException(id));
+
+        return CourseMapper.toDTO(course);
     }
 
-    public Course update(Long id, Course course) {
-        courseRepository.findById(id)
+    public CourseDTO update(Long id, CourseDTO courseDTO) {
+        Course course = courseRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException(id));
 
-        course.setId(id);
-        return courseRepository.save(course);
+        course.setName(courseDTO.name());
+        course.setCategory(courseDTO.category());
+        course.setStatus(courseDTO.status());
+
+        Course updatedCourse = courseRepository.save(course);
+        return CourseMapper.toDTO(updatedCourse);
     }
 
     public void delete(Long id) {
