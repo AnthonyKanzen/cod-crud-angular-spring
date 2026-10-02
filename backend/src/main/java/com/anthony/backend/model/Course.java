@@ -1,10 +1,17 @@
 package com.anthony.backend.model;
 
+import com.anthony.backend.enums.Category;
+import com.anthony.backend.enums.converters.CategoryConverters;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-import lombok.Data;
 
 @Data
 @Entity
@@ -20,10 +27,10 @@ public class Course {
     @Column(length = 200, nullable = false)
     private String name;
 
+    @Convert(converter = CategoryConverters.class)
     @Column(length = 20, nullable = false)
-    private String category;
+    private Category category;
 
     @Column(length = 10, nullable = false)
     private String status = "ATIVO";
-
 }

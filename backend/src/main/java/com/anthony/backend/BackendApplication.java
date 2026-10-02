@@ -1,5 +1,6 @@
 package com.anthony.backend;
 
+import com.anthony.backend.enums.Category;
 import com.anthony.backend.model.Course;
 import com.anthony.backend.repository.CourseRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -21,7 +22,7 @@ public class BackendApplication {
 
             Course c = new Course();
             c.setName("Angular com Spring");
-            c.setCategory("front-end");
+            c.setCategory(Category.FRONTEND);
 
             courseRepository.save(c);
         };

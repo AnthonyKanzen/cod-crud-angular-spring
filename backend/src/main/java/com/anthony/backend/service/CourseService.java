@@ -42,7 +42,6 @@ public class CourseService {
 
         course.setName(courseDTO.name());
         course.setCategory(courseDTO.category());
-        course.setStatus(courseDTO.status());
 
         Course updatedCourse = courseRepository.save(course);
         return CourseMapper.toDTO(updatedCourse);
