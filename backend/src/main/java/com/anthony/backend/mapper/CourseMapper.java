@@ -1,6 +1,7 @@
 package com.anthony.backend.mapper;
 
 import com.anthony.backend.dto.CourseDTO;
+import com.anthony.backend.enums.CourseStatus;
 import com.anthony.backend.model.Course;
 
 public class CourseMapper {
@@ -18,7 +19,7 @@ public class CourseMapper {
         course.setId(dto.id());
         course.setName(dto.name());
         course.setCategory(dto.category());
-        course.setStatus("ATIVO");
+        course.setStatus(CourseStatus.ATIVO);
         return course;
     }
 }

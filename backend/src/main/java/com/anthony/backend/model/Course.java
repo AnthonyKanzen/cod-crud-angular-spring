@@ -1,7 +1,9 @@
 package com.anthony.backend.model;
 
+import com.anthony.backend.enums.CourseStatus;
 import com.anthony.backend.enums.Category;
 import com.anthony.backend.enums.converters.CategoryConverters;
+import com.anthony.backend.enums.converters.StatusConverters;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -15,8 +17,8 @@ import org.hibernate.annotations.SQLRestriction;
 
 @Data
 @Entity
-@SQLDelete(sql = "UPDATE course SET status = 'INATIVO' WHERE id = ?")
-@SQLRestriction("status = 'ATIVO'")
+@SQLDelete(sql = "UPDATE course SET status = 'Inativo' WHERE id = ?")
+@SQLRestriction("status = 'Ativo'")
 public class Course {
 
     @Id
@@ -31,6 +33,7 @@ public class Course {
     @Column(length = 20, nullable = false)
     private Category category;
 
-    @Column(length = 10, nullable = false)
-    private String status = "ATIVO";
+    @Convert(converter = StatusConverters.class)
+    @Column(length = 20, nullable = false)
+    private CourseStatus status = CourseStatus.ATIVO;
 }
