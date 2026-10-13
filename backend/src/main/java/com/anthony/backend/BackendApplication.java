@@ -1,7 +1,9 @@
+
 package com.anthony.backend;
 
 import com.anthony.backend.enums.Category;
 import com.anthony.backend.model.Course;
+import com.anthony.backend.model.Lesson;
 import com.anthony.backend.repository.CourseRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -23,6 +25,13 @@ public class BackendApplication {
             Course c = new Course();
             c.setName("Angular com Spring");
             c.setCategory(Category.FRONTEND);
+
+            Lesson l = new Lesson();
+            l.setName("Introdução ao Angular");
+            l.setYoutubeUrl("https://www.youtube.com/");
+
+            l.setCourse(c);
+            c.getLessons().add(l);
 
             courseRepository.save(c);
         };
