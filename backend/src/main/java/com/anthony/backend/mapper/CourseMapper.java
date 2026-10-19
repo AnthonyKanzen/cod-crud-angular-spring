@@ -1,6 +1,8 @@
+
 package com.anthony.backend.mapper;
 
 import com.anthony.backend.dto.CourseDTO;
+import com.anthony.backend.dto.LessonDTO;
 import com.anthony.backend.enums.CourseStatus;
 import com.anthony.backend.model.Course;
 
@@ -10,7 +12,14 @@ public class CourseMapper {
         return new CourseDTO(
                 course.getId(),
                 course.getName(),
-                course.getCategory()
+                course.getCategory(),
+                course.getLessons().stream()
+                        .map(lesson -> new LessonDTO(
+                                lesson.getId(),
+                                lesson.getName(),
+                                lesson.getYoutubeUrl()
+                        ))
+                        .toList()
         );
     }
 
