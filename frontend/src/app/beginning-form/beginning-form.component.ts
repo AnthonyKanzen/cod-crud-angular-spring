@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {
   NonNullableFormBuilder,
   FormGroup,
+  FormArray,
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
@@ -11,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BeginningService } from '../services/beginning.service';
 
@@ -21,6 +23,7 @@ import { BeginningService } from '../services/beginning.service';
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
     MatSelectModule,
     MatButtonModule,
     MatSnackBarModule
@@ -29,7 +32,8 @@ import { BeginningService } from '../services/beginning.service';
   styleUrl: './beginning-form.component.scss'
 })
 export class BeginningFormComponent {
-  form!: FormGroup;
+  form: FormGroup;
+  lessonsExpanded = false;
 
   constructor(
     private formBuilder: NonNullableFormBuilder,
@@ -39,13 +43,39 @@ export class BeginningFormComponent {
   ) {
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(50)]],
-      category: ['', Validators.required]
+      category: ['', Validators.required],
+      lessons: this.formBuilder.array([this.createLesson()])
     });
+  }
+
+  get lessons(): FormArray {
+    return this.form.get('lessons') as FormArray;
+  }
+
+  private createLesson(): FormGroup {
+    return this.formBuilder.group({
+      name: ['', Validators.required],
+      youtubeUrl: ['', Validators.required]
+    });
+  }
+
+  toggleLessons(): void {
+    this.lessonsExpanded = !this.lessonsExpanded;
+  }
+
+  addLesson(): void {
+    this.lessons.push(this.createLesson());
+  }
+
+  removeLesson(index: number): void {
+    if (this.lessons.length > 1) {
+      this.lessons.removeAt(index);
+    }
   }
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.beginningService.save(this.form.value).subscribe({
+      this.beginningService.save(this.form.getRawValue()).subscribe({
         next: result => {
           console.log('Curso salvo:', result);
           this.snackBar.open('Curso salvo com sucesso!', 'Fechar', { duration: 3000 });
@@ -57,6 +87,7 @@ export class BeginningFormComponent {
         }
       });
     } else {
+      this.lessonsExpanded = true;
       this.form.markAllAsTouched();
       this.snackBar.open('Preencha todos os campos obrigatórios!', 'Fechar', { duration: 3000 });
     }
@@ -66,3 +97,4 @@ export class BeginningFormComponent {
     this.location.back();
   }
 }
+

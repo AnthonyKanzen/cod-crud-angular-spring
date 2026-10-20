@@ -9,48 +9,73 @@
   </mat-toolbar>
 
   <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-
     <mat-form-field appearance="outline" floatLabel="always">
       <mat-label>Nome</mat-label>
-
-      <input
-        matInput
-        formControlName="name"
-        placeholder="Digite o nome do curso"
-        maxlength="50">
-
+      <input matInput formControlName="name" placeholder="Digite o nome do curso" maxlength="50">
       @if (form.get('name')?.hasError('required') && form.get('name')?.touched) {
         <mat-error>O nome do curso é obrigatório.</mat-error>
       }
-
       @if (form.get('name')?.hasError('maxlength')) {
         <mat-error>O nome pode ter no máximo 50 caracteres.</mat-error>
       }
     </mat-form-field>
 
-    <mat-form-field appearance="outline" floatLabel="always">
-      <mat-label>Categoria</mat-label>
+<mat-form-field appearance="outline" floatLabel="always">
+  <mat-label>Categoria</mat-label>
+  <mat-select formControlName="category" placeholder="Selecione uma categoria" panelClass="category-panel">
+    <mat-option value="front-end">Front-end</mat-option>
+    <mat-option value="back-end">Back-end</mat-option>
+    <mat-option value="banco-de-dados">Banco de Dados</mat-option>
+  </mat-select>
+  @if (form.get('category')?.hasError('required') && form.get('category')?.touched) {
+    <mat-error>A categoria é obrigatória.</mat-error>
+  }
+</mat-form-field>
 
-      <mat-select
-        formControlName="category"
-        placeholder="Selecione uma categoria"
-        panelClass="category-panel">
+@if (lessonsExpanded) {
+  <h2 class="lessons-title">Aulas</h2>
 
-        <mat-option value="front-end">Front-end</mat-option>
-        <mat-option value="back-end">Back-end</mat-option>
-        <mat-option value="banco-de-dados">Banco de Dados</mat-option>
+  <div formArrayName="lessons" class="lessons-list">
+    @for (lesson of lessons.controls; track $index; let i = $index) {
+      <div class="lesson-card" [formGroupName]="i">
+        <div class="lesson-fields">
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>Nome da aula</mat-label>
+            <input matInput formControlName="name" placeholder="Digite o nome da aula">
+            @if (lesson.get('name')?.hasError('required') && lesson.get('name')?.touched) {
+              <mat-error>Informe o nome da aula.</mat-error>
+            }
+          </mat-form-field>
 
-      </mat-select>
+          <mat-form-field appearance="outline" floatLabel="always">
+            <mat-label>URL do YouTube</mat-label>
+            <input matInput formControlName="youtubeUrl" placeholder="Digite a URL do vídeo">
+            @if (lesson.get('youtubeUrl')?.hasError('required') && lesson.get('youtubeUrl')?.touched) {
+              <mat-error>Informe a URL do vídeo.</mat-error>
+            }
+          </mat-form-field>
+        </div>
 
-      @if (form.get('category')?.hasError('required') && form.get('category')?.touched) {
-        <mat-error>A categoria é obrigatória.</mat-error>
-      }
-    </mat-form-field>
+        <div class="lesson-actions">
+          <button mat-flat-button class="add-lesson-button" type="button" (click)="addLesson()">+ Adicionar aula</button>
+          @if (lessons.length > 1) {
+            <button mat-flat-button class="remove-lesson-button" type="button" (click)="removeLesson(i)">Remover aula</button>
+          }
+        </div>
+      </div>
+    }
+  </div>
+}
 
-    <div class="actions">
-      <button mat-flat-button type="submit">Salvar</button>
-      <button mat-flat-button type="button" (click)="onCancel()">Cancelar</button>
-    </div>
+<div class="actions">
+  <button mat-flat-button class="lessons-toggle" type="button" (click)="toggleLessons()" [attr.aria-expanded]="lessonsExpanded">
+    <mat-icon>{{ lessonsExpanded ? 'remove' : 'add' }}</mat-icon>
+    {{ lessonsExpanded ? 'Ocultar aulas' : 'Adicionar aulas' }}
+  </button>
+
+  <button mat-flat-button type="submit">Salvar</button>
+  <button mat-flat-button type="button" (click)="onCancel()">Cancelar</button>
+</div>
 
   </form>
 </div>
