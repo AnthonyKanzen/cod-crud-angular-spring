@@ -7,7 +7,6 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-
 import { Beginning } from '../models/beginning';
 import { BeginningService } from '../services/beginning.service';
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
@@ -62,7 +61,7 @@ export class BeginningComponent implements OnInit {
   }
 
   onEdit(beginning: Beginning): void {
-    this.router.navigate(['edit', beginning._id], { relativeTo: this.route });
+    this.router.navigate(['edit', beginning.id], { relativeTo: this.route });
   }
 
   onDelete(beginning: Beginning): void {
@@ -70,9 +69,9 @@ export class BeginningComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.beginningService.delete(beginning._id).subscribe({
+        this.beginningService.delete(beginning.id.toString()).subscribe({
           next: () => {
-            this.beginning = this.beginning.filter(course => course._id !== beginning._id);
+            this.beginning = this.beginning.filter(course => course.id !== beginning.id);
             this.snackBar.open('Curso excluído com sucesso!', 'Fechar', { duration: 3000 });
           },
           error: error => {

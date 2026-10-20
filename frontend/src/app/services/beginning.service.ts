@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { delay, catchError, throwError } from 'rxjs';
@@ -7,47 +8,56 @@ import { Beginning } from '../models/beginning';
   providedIn: 'root'
 })
 export class BeginningService {
-
   private readonly API = '/api/courses';
 
   constructor(private httpClient: HttpClient) {}
 
   list() {
-
-    return this.httpClient
-      .get<Beginning[]>(this.API)
-      .pipe(
-        delay(400),
-        catchError(error => {
-          console.error('Erro ao carregar os cursos:', error);
-          return throwError(() => error);
-        })
-      );
+    return this.httpClient.get<Beginning[]>(this.API).pipe(
+      delay(400),
+      catchError(error => {
+        console.error('Erro ao carregar os cursos:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
   save(beginning: Beginning) {
-
     return this.httpClient.post<Beginning>(this.API, beginning).pipe(
-        catchError(error => {
-          console.error('Erro ao salvar o curso:', error);
-          return throwError(() => error);
-        })
-      );
+      catchError(error => {
+        console.error('Erro ao cadastrar o curso:', error);
+        return throwError(() => error);
+      })
+    );
   }
 
   findById(id: string) {
-  return this.httpClient.get<Beginning>(`${this.API}/${id}`);
-}
+    return this.httpClient.get<Beginning>(`${this.API}/${id}`).pipe(
+      catchError(error => {
+        console.error('Erro ao buscar o curso:', error);
+        return throwError(() => error);
+      })
+    );
+  }
 
-update(id: string, beginning: Beginning) {
-  return this.httpClient.put<Beginning>(
-    `${this.API}/${id}`,
-    beginning
-  );
-}
+  update(id: string, beginning: Beginning) {
+    return this.httpClient.put<Beginning>(
+      `${this.API}/${id}`,
+      beginning
+    ).pipe(
+      catchError(error => {
+        console.error('Erro ao atualizar o curso:', error);
+        return throwError(() => error);
+      })
+    );
+  }
 
-delete(id: string) {
-  return this.httpClient.delete(`${this.API}/${id}`);
-}
-
+  delete(id: string) {
+    return this.httpClient.delete(`${this.API}/${id}`).pipe(
+      catchError(error => {
+        console.error('Erro ao excluir o curso:', error);
+        return throwError(() => error);
+      })
+    );
+  }
 }

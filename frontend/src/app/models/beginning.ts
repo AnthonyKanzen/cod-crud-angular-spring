@@ -1,7 +1,7 @@
 import { Lesson } from './lesson';
 
 export interface Beginning {
-  _id: string;
+  id: number;
   name: string;
   category: string;
   lessons: Lesson[];
