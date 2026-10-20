@@ -5,6 +5,9 @@ import com.anthony.backend.dto.CourseDTO;
 import com.anthony.backend.dto.LessonDTO;
 import com.anthony.backend.enums.CourseStatus;
 import com.anthony.backend.model.Course;
+import com.anthony.backend.model.Lesson;
+
+import java.util.ArrayList;
 
 public class CourseMapper {
 
@@ -29,6 +32,18 @@ public class CourseMapper {
         course.setName(dto.name());
         course.setCategory(dto.category());
         course.setStatus(CourseStatus.ATIVO);
+        course.setLessons(new ArrayList<>());
+
+        if (dto.lessons() != null) {
+            dto.lessons().forEach(lessonDTO -> {
+                Lesson lesson = new Lesson();
+                lesson.setName(lessonDTO.name());
+                lesson.setYoutubeUrl(lessonDTO.youtubeUrl());
+                lesson.setCourse(course);
+                course.getLessons().add(lesson);
+            });
+        }
+
         return course;
     }
 }

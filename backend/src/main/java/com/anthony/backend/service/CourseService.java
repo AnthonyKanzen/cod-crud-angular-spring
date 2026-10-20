@@ -1,9 +1,11 @@
+
 package com.anthony.backend.service;
 
 import com.anthony.backend.dto.CourseDTO;
 import com.anthony.backend.exception.RecordNotFoundException;
 import com.anthony.backend.mapper.CourseMapper;
 import com.anthony.backend.model.Course;
+import com.anthony.backend.model.Lesson;
 import com.anthony.backend.repository.CourseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,18 @@ public class CourseService {
 
         course.setName(courseDTO.name());
         course.setCategory(courseDTO.category());
+
+        if (courseDTO.lessons() != null) {
+            course.getLessons().clear();
+
+            courseDTO.lessons().forEach(lessonDTO -> {
+                Lesson lesson = new Lesson();
+                lesson.setName(lessonDTO.name());
+                lesson.setYoutubeUrl(lessonDTO.youtubeUrl());
+                lesson.setCourse(course);
+                course.getLessons().add(lesson);
+            });
+        }
 
         Course updatedCourse = courseRepository.save(course);
         return CourseMapper.toDTO(updatedCourse);
