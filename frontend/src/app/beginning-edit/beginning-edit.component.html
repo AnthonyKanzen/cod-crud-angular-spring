@@ -9,10 +9,8 @@
   </mat-toolbar>
 
   <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
-
     <mat-form-field appearance="outline" floatLabel="always">
       <mat-label>Nome</mat-label>
-
       <input
         matInput
         formControlName="name"
@@ -30,7 +28,6 @@
 
     <mat-form-field appearance="outline" floatLabel="always">
       <mat-label>Categoria</mat-label>
-
       <mat-select
         formControlName="category"
         placeholder="Selecione uma categoria"
@@ -38,7 +35,6 @@
 
         <mat-option value="Front-end">Front-end</mat-option>
         <mat-option value="Back-end">Back-end</mat-option>
-
       </mat-select>
 
       @if (form.get('category')?.hasError('required') && form.get('category')?.touched) {
@@ -46,10 +42,77 @@
       }
     </mat-form-field>
 
+    <h2 class="lessons-title">Aulas</h2>
+
+    <div formArrayName="lessons" class="lessons-list">
+      @for (lesson of lessons.controls; track $index; let i = $index) {
+        <div class="lesson-card" [formGroupName]="i">
+          <div class="lesson-fields">
+            <mat-form-field appearance="outline" floatLabel="always">
+              <mat-label>Nome da aula</mat-label>
+              <input
+                matInput
+                formControlName="name"
+                placeholder="Digite o nome da aula">
+
+              @if (lesson.get('name')?.hasError('required') && lesson.get('name')?.touched) {
+                <mat-error>Informe o nome da aula.</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" floatLabel="always">
+              <mat-label>URL do YouTube</mat-label>
+              <span matTextPrefix>https://youtu.be/</span>
+              <input
+                matInput
+                formControlName="youtubeUrl"
+                placeholder="Código do vídeo">
+
+              @if (lesson.get('youtubeUrl')?.hasError('required') && lesson.get('youtubeUrl')?.touched) {
+                <mat-error>Informe o código do vídeo.</mat-error>
+              }
+            </mat-form-field>
+          </div>
+
+          <div class="lesson-actions">
+            <button
+              mat-flat-button
+              class="add-lesson-button"
+              type="button"
+              (click)="addLesson()">
+              <mat-icon>add</mat-icon>
+              Adicionar aula
+            </button>
+
+            <button
+              mat-flat-button
+              class="remove-lesson-button"
+              type="button"
+              (click)="removeLesson(i)">
+              <mat-icon>delete</mat-icon>
+              Remover aula
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+
+    @if (lessons.length === 0) {
+      <p class="no-lessons">Este curso ainda não possui aulas.</p>
+
+      <button
+        mat-flat-button
+        class="add-lesson-button"
+        type="button"
+        (click)="addLesson()">
+        <mat-icon>add</mat-icon>
+        Adicionar primeira aula
+      </button>
+    }
+
     <div class="actions">
       <button mat-flat-button type="submit">Salvar</button>
       <button mat-flat-button type="button" (click)="onCancel()">Cancelar</button>
     </div>
-
   </form>
 </div>

@@ -1,4 +1,3 @@
-
 import { Component } from '@angular/core';
 import {
   NonNullableFormBuilder,
@@ -35,7 +34,6 @@ import { Beginning } from '../models/beginning';
 })
 export class BeginningFormComponent {
   form: FormGroup;
-  lessonsExpanded = false;
 
   constructor(
     private formBuilder: NonNullableFormBuilder,
@@ -61,22 +59,12 @@ export class BeginningFormComponent {
     });
   }
 
-  toggleLessons(): void {
-    if (!this.lessonsExpanded && this.lessons.length === 0) {
-      this.addLesson();
-    }
-
-    this.lessonsExpanded = !this.lessonsExpanded;
-  }
-
   addLesson(): void {
     this.lessons.push(this.createLesson());
   }
 
   removeLesson(index: number): void {
-    if (this.lessons.length > 1) {
-      this.lessons.removeAt(index);
-    }
+    this.lessons.removeAt(index);
   }
 
   onSubmit(): void {
@@ -86,41 +74,51 @@ export class BeginningFormComponent {
     if (
       !nameControl?.valid ||
       !categoryControl?.valid ||
-      (this.lessonsExpanded && !this.lessons.valid)
+      !this.lessons.valid
     ) {
       nameControl?.markAsTouched();
       categoryControl?.markAsTouched();
-
-      if (this.lessonsExpanded) {
-        this.lessons.markAllAsTouched();
-      }
+      this.lessons.markAllAsTouched();
 
       this.snackBar.open(
         'Preencha todos os campos obrigatórios!',
         'Fechar',
         { duration: 3000 }
       );
+
       return;
     }
+
+    const lessons = this.lessons.getRawValue().map(
+      (lesson: { name: string; youtubeUrl: string }) => ({
+        ...lesson,
+        youtubeUrl: lesson.youtubeUrl.startsWith('http')
+          ? lesson.youtubeUrl
+          : `https://youtu.be/${lesson.youtubeUrl.trim()}`
+      })
+    );
 
     const course = {
       name: nameControl.value,
       category: categoryControl.value,
-      lessons: this.lessonsExpanded ? this.lessons.getRawValue() : []
+      lessons
     } as Beginning;
 
     this.beginningService.save(course).subscribe({
       next: result => {
         console.log('Curso salvo:', result);
+
         this.snackBar.open(
           'Curso salvo com sucesso!',
           'Fechar',
           { duration: 3000 }
         );
+
         this.location.back();
       },
       error: error => {
         console.error('Erro ao salvar o curso:', error);
+
         this.snackBar.open(
           'Erro ao salvar o curso!',
           'Fechar',
@@ -134,3 +132,4 @@ export class BeginningFormComponent {
     this.location.back();
   }
 }
+
