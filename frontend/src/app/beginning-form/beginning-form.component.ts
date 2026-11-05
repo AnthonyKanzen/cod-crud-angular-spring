@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { BeginningService } from '../services/beginning.service';
 import { Beginning } from '../models/beginning';
+import { FormUtils } from '../shared/utils/form-utils';
 
 @Component({
   selector: 'app-beginning-form',
@@ -34,6 +35,7 @@ import { Beginning } from '../models/beginning';
 })
 export class BeginningFormComponent {
   form: FormGroup;
+  readonly formUtils = FormUtils;
 
   constructor(
     private formBuilder: NonNullableFormBuilder,

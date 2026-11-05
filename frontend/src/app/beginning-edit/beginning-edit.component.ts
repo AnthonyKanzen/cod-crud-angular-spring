@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import {
   NonNullableFormBuilder,
   FormGroup,
@@ -7,10 +6,8 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -18,8 +15,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-
 import { BeginningService } from '../services/beginning.service';
+import { FormUtils } from '../shared/utils/form-utils';
 
 @Component({
   selector: 'app-beginning-edit',
@@ -38,6 +35,7 @@ import { BeginningService } from '../services/beginning.service';
 })
 export class BeginningEditComponent {
   form!: FormGroup;
+  readonly formUtils = FormUtils;
 
   constructor(
     private formBuilder: NonNullableFormBuilder,
@@ -80,6 +78,7 @@ export class BeginningEditComponent {
         },
         error: error => {
           console.error('Erro ao carregar o curso:', error);
+
           this.snackBar.open(
             'Erro ao carregar o curso!',
             'Fechar',
@@ -134,15 +133,18 @@ export class BeginningEditComponent {
       this.beginningService.update(id, course).subscribe({
         next: result => {
           console.log('Curso atualizado:', result);
+
           this.snackBar.open(
             'Curso atualizado com sucesso!',
             'Fechar',
             { duration: 3000 }
           );
+
           this.location.back();
         },
         error: error => {
           console.error('Erro ao atualizar o curso:', error);
+
           this.snackBar.open(
             'Erro ao atualizar o curso!',
             'Fechar',
@@ -152,6 +154,7 @@ export class BeginningEditComponent {
       });
     } else {
       this.form.markAllAsTouched();
+
       this.snackBar.open(
         'Preencha todos os campos obrigatórios!',
         'Fechar',
@@ -164,3 +167,4 @@ export class BeginningEditComponent {
     this.location.back();
   }
 }
+

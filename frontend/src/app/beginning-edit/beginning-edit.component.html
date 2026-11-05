@@ -1,4 +1,5 @@
 <div class="container">
+
   <div class="page-header">
     <h1>Meus Cursos</h1>
     <p>Edite o curso para estudo.</p>
@@ -9,6 +10,7 @@
   </mat-toolbar>
 
   <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
     <mat-form-field appearance="outline" floatLabel="always">
       <mat-label>Nome</mat-label>
       <input
@@ -17,12 +19,8 @@
         placeholder="Digite o nome do curso"
         maxlength="50">
 
-      @if (form.get('name')?.hasError('required') && form.get('name')?.touched) {
-        <mat-error>O nome do curso é obrigatório.</mat-error>
-      }
-
-      @if (form.get('name')?.hasError('maxlength')) {
-        <mat-error>O nome pode ter no máximo 50 caracteres.</mat-error>
+      @if (formUtils.getErrorMessage(form.get('name'), 'courseName')) {
+        <mat-error>{{ formUtils.getErrorMessage(form.get('name'), 'courseName') }}</mat-error>
       }
     </mat-form-field>
 
@@ -37,8 +35,8 @@
         <mat-option value="Back-end">Back-end</mat-option>
       </mat-select>
 
-      @if (form.get('category')?.hasError('required') && form.get('category')?.touched) {
-        <mat-error>A categoria é obrigatória.</mat-error>
+      @if (formUtils.getErrorMessage(form.get('category'), 'category')) {
+        <mat-error>{{ formUtils.getErrorMessage(form.get('category'), 'category') }}</mat-error>
       }
     </mat-form-field>
 
@@ -47,7 +45,9 @@
     <div formArrayName="lessons" class="lessons-list">
       @for (lesson of lessons.controls; track $index; let i = $index) {
         <div class="lesson-card" [formGroupName]="i">
+
           <div class="lesson-fields">
+
             <mat-form-field appearance="outline" floatLabel="always">
               <mat-label>Nome da aula</mat-label>
               <input
@@ -55,8 +55,8 @@
                 formControlName="name"
                 placeholder="Digite o nome da aula">
 
-              @if (lesson.get('name')?.hasError('required') && lesson.get('name')?.touched) {
-                <mat-error>Informe o nome da aula.</mat-error>
+              @if (formUtils.getErrorMessage(lesson.get('name'), 'lessonName')) {
+                <mat-error>{{ formUtils.getErrorMessage(lesson.get('name'), 'lessonName') }}</mat-error>
               }
             </mat-form-field>
 
@@ -68,18 +68,21 @@
                 formControlName="youtubeUrl"
                 placeholder="Código do vídeo">
 
-              @if (lesson.get('youtubeUrl')?.hasError('required') && lesson.get('youtubeUrl')?.touched) {
-                <mat-error>Informe o código do vídeo.</mat-error>
+              @if (formUtils.getErrorMessage(lesson.get('youtubeUrl'), 'lessonYoutubeUrl')) {
+                <mat-error>{{ formUtils.getErrorMessage(lesson.get('youtubeUrl'), 'lessonYoutubeUrl') }}</mat-error>
               }
             </mat-form-field>
+
           </div>
 
           <div class="lesson-actions">
+
             <button
               mat-flat-button
               class="add-lesson-button"
               type="button"
               (click)="addLesson()">
+
               <mat-icon>add</mat-icon>
               Adicionar aula
             </button>
@@ -89,9 +92,11 @@
               class="remove-lesson-button"
               type="button"
               (click)="removeLesson(i)">
+
               <mat-icon>delete</mat-icon>
               Remover aula
             </button>
+
           </div>
         </div>
       }
@@ -105,6 +110,7 @@
         class="add-lesson-button"
         type="button"
         (click)="addLesson()">
+
         <mat-icon>add</mat-icon>
         Adicionar primeira aula
       </button>
@@ -114,5 +120,7 @@
       <button mat-flat-button type="submit">Salvar</button>
       <button mat-flat-button type="button" (click)="onCancel()">Cancelar</button>
     </div>
+
   </form>
 </div>
+

@@ -23,8 +23,7 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
     MatIconModule,
     MatSnackBarModule,
     MatTooltipModule,
-    CategoriesPipe,
-    DeleteDialogComponent
+    CategoriesPipe
   ],
   templateUrl: './beginning.component.html',
   styleUrl: './beginning.component.scss'

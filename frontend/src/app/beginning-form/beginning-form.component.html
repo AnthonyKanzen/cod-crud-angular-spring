@@ -19,12 +19,8 @@
         placeholder="Digite o nome do curso"
         maxlength="50">
 
-      @if (form.get('name')?.hasError('required') && form.get('name')?.touched) {
-        <mat-error>O nome do curso é obrigatório.</mat-error>
-      }
-
-      @if (form.get('name')?.hasError('maxlength')) {
-        <mat-error>O nome pode ter no máximo 50 caracteres.</mat-error>
+      @if (formUtils.getErrorMessage(form.get('name'), 'courseName')) {
+        <mat-error>{{ formUtils.getErrorMessage(form.get('name'), 'courseName') }}</mat-error>
       }
     </mat-form-field>
 
@@ -39,8 +35,8 @@
         <mat-option value="Back-end">Back-end</mat-option>
       </mat-select>
 
-      @if (form.get('category')?.hasError('required') && form.get('category')?.touched) {
-        <mat-error>A categoria é obrigatória.</mat-error>
+      @if (formUtils.getErrorMessage(form.get('category'), 'category')) {
+        <mat-error>{{ formUtils.getErrorMessage(form.get('category'), 'category') }}</mat-error>
       }
     </mat-form-field>
 
@@ -59,8 +55,8 @@
                 formControlName="name"
                 placeholder="Digite o nome da aula">
 
-              @if (lesson.get('name')?.hasError('required') && lesson.get('name')?.touched) {
-                <mat-error>Informe o nome da aula.</mat-error>
+              @if (formUtils.getErrorMessage(lesson.get('name'), 'lessonName')) {
+                <mat-error>{{ formUtils.getErrorMessage(lesson.get('name'), 'lessonName') }}</mat-error>
               }
             </mat-form-field>
 
@@ -72,8 +68,8 @@
                 formControlName="youtubeUrl"
                 placeholder="Código do vídeo">
 
-              @if (lesson.get('youtubeUrl')?.hasError('required') && lesson.get('youtubeUrl')?.touched) {
-                <mat-error>Informe o código do vídeo.</mat-error>
+              @if (formUtils.getErrorMessage(lesson.get('youtubeUrl'), 'lessonYoutubeUrl')) {
+                <mat-error>{{ formUtils.getErrorMessage(lesson.get('youtubeUrl'), 'lessonYoutubeUrl') }}</mat-error>
               }
             </mat-form-field>
 
