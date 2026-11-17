@@ -1,7 +1,7 @@
 
 package com.anthony.backend.dto;
 
-import com.anthony.backend.enums.Category;
+import com.anthony.backend.validation.EnumValue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -14,7 +14,9 @@ public record CourseDTO(
         @Size(max = 50, message = "O nome do curso deve ter no máximo 50 caracteres")
         String name,
 
-        Category category,
+        @EnumValue(enumClass = com.anthony.backend.enums.Category.class,
+                message = "Categoria inválida")
+        String category,
 
         List<LessonDTO> lessons
 ) {

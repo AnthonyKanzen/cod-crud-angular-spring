@@ -43,7 +43,7 @@ public class CourseService {
                 .orElseThrow(() -> new RecordNotFoundException(id));
 
         course.setName(courseDTO.name());
-        course.setCategory(courseDTO.category());
+        course.setCategory(CourseMapper.toCategory(courseDTO.category()));
 
         if (courseDTO.lessons() != null) {
             course.getLessons().clear();

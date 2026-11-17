@@ -3,11 +3,13 @@ package com.anthony.backend.mapper;
 
 import com.anthony.backend.dto.CourseDTO;
 import com.anthony.backend.dto.LessonDTO;
+import com.anthony.backend.enums.Category;
 import com.anthony.backend.enums.CourseStatus;
 import com.anthony.backend.model.Course;
 import com.anthony.backend.model.Lesson;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CourseMapper {
 
@@ -15,7 +17,7 @@ public class CourseMapper {
         return new CourseDTO(
                 course.getId(),
                 course.getName(),
-                course.getCategory(),
+                course.getCategory() != null ? course.getCategory().getValue() : null,
                 course.getLessons().stream()
                         .map(lesson -> new LessonDTO(
                                 lesson.getId(),
@@ -30,7 +32,7 @@ public class CourseMapper {
         Course course = new Course();
         course.setId(dto.id());
         course.setName(dto.name());
-        course.setCategory(dto.category());
+        course.setCategory(toCategory(dto.category()));
         course.setStatus(CourseStatus.ATIVO);
         course.setLessons(new ArrayList<>());
 
@@ -45,5 +47,13 @@ public class CourseMapper {
         }
 
         return course;
+    }
+
+    public static Category toCategory(String value) {
+        return Arrays.stream(Category.values())
+                .filter(category -> category.name().equals(value)
+                        || category.getValue().equals(value))
+                .findFirst()
+                .orElse(null);
     }
 }
