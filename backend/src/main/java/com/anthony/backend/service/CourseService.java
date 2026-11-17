@@ -2,12 +2,16 @@
 package com.anthony.backend.service;
 
 import com.anthony.backend.dto.CourseDTO;
+import com.anthony.backend.dto.PageDTO;
 import com.anthony.backend.exception.RecordNotFoundException;
 import com.anthony.backend.mapper.CourseMapper;
 import com.anthony.backend.model.Course;
 import com.anthony.backend.model.Lesson;
 import com.anthony.backend.repository.CourseRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,11 +22,23 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
 
-    public List<CourseDTO> list() {
-        return courseRepository.findAll()
+    public PageDTO<CourseDTO> list(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        Page<Course> coursePage = courseRepository.findAll(pageable);
+
+        List<CourseDTO> content = coursePage.getContent()
                 .stream()
                 .map(CourseMapper::toDTO)
                 .toList();
+
+        return new PageDTO<>(
+                content,
+                coursePage.getNumber(),
+                coursePage.getSize(),
+                coursePage.getTotalElements(),
+                coursePage.getTotalPages()
+        );
     }
 
     public CourseDTO create(CourseDTO courseDTO) {
